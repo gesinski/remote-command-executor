@@ -1,0 +1,28 @@
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Java / Kotlin
+*.class
+*.log
+
+# Environment files
+.env
+
+# Logs
+logs/
+*.log
+
+# Spring Boot
+application-local.yml
+application-dev.yml
+
+# Mics
+out/

@@ -1,0 +1,24 @@
+logging:
+  file:
+    name: logs/app.log
+  level:
+    root: INFO
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/remote_exec_db
+    username: app_user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+aws:
+  access-key: ${AWS_ACCESS_KEY_ID}
+  secret-key: ${AWS_SECRET_ACCESS_KEY}
+  region: eu-north-1
+ec2:
+  key-name: remote-executor-key
+  key-path: ${EC2_KEY_PATH}
+  ami-id: ami-080254318c2d8932f
+  instance-type: t3.micro
