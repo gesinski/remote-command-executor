@@ -29,6 +29,7 @@ class ExecutionWorker(
     }
 
     private fun processTask(task: Execution) {
+
         task.status = ExecutionStatus.IN_PROGRESS
         executionService.save(task)
 
@@ -42,8 +43,13 @@ class ExecutionWorker(
 
             ec2Service.waitUntilRunning(instanceId)
 
-            val ip = ec2Service.getPublicIp(instanceId)
+            val ip = ec2Service.waitForPublicIp(instanceId)
             logger.info("EC2 IP: $ip")
+
+            sshService.waitForSshReady(
+                ip = ip,
+                user = "ubuntu"
+            )
 
             val output = sshService.executeCommand(ip, task.command)
 
@@ -54,15 +60,21 @@ class ExecutionWorker(
             logger.info("Task ${task.id} finished successfully")
 
         } catch (e: Exception) {
+
+            logger.error("Task ${task.id} failed", e)
+
             task.status = ExecutionStatus.FAILED
             task.output = e.message
             executionService.save(task)
 
-            logger.error("Task ${task.id} failed", e)
         } finally {
-            if (instanceId != null) {
-                ec2Service.terminate(instanceId)
-                logger.info("EC2 terminated: $instanceId")
+            instanceId?.let {
+                try {
+                    ec2Service.terminate(it)
+                    logger.info("EC2 terminated: $it")
+                } catch (e: Exception) {
+                    logger.warn("Failed to terminate EC2: $it", e)
+                }
             }
         }
     }
