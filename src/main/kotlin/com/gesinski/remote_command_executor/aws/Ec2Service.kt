@@ -18,7 +18,10 @@ class Ec2Service(
     private val instanceType: String,
 
     @Value("\${ec2.key-name}")
-    private val keyName: String
+    private val keyName: String,
+
+    @Value("\${ec2.security-group-ids}")
+    private var securityGroupIds: String
 ) {
 
     private val logger = LoggerFactory.getLogger(Ec2Service::class.java)
@@ -32,7 +35,7 @@ class Ec2Service(
             .maxCount(1)
             .minCount(1)
             .keyName(keyName)
-            .securityGroupIds("sg-0c03524d791de6717")
+            .securityGroupIds(securityGroupIds)
             .build()
 
         val response = ec2Client.runInstances(request)
