@@ -21,4 +21,5 @@ ec2:
   key-name: remote-executor-key
   key-path: ${EC2_KEY_PATH}
   ami-id: ami-080254318c2d8932f
+  security-group-ids: ${EC2_SECURITY_GROUP_IDS}
   instance-type: t3.micro
