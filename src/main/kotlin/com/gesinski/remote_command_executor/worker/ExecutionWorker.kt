@@ -51,7 +51,7 @@ class ExecutionWorker(
                 user = "ubuntu"
             )
 
-            val output = sshService.executeCommand(ip, task.command)
+            val output = sshService.executeCommand(ip, task.command, timeoutSeconds = task.timeoutSeconds)
 
             task.output = output
             task.status = ExecutionStatus.FINISHED

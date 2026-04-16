@@ -10,7 +10,7 @@ data class Execution(
     @Id
     val id: String = java.util.UUID.randomUUID().toString(),
     val command: String,
-    val cpuCount: Int,
+    val timeoutSeconds: Long,
     @Enumerated(EnumType.STRING)
     var status: ExecutionStatus = ExecutionStatus.QUEUED,
     var output: String? = null

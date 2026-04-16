@@ -15,7 +15,7 @@ class SshService(
         ip: String,
         command: String,
         user: String = "ubuntu",
-        timeoutSeconds: Long = 60
+        timeoutSeconds: Long
     ): String {
 
         val process = ProcessBuilder(

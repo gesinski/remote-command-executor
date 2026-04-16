@@ -25,7 +25,11 @@ fun main() {
         val command = scanner.nextLine()
         if (command.lowercase() == "q") break
 
-        val execution: Execution = executionService.createExecution(command, cpuCount = 1)
+        print("Enter execution timeout (seconds): ")
+        val input = scanner.nextLine()
+        val timeoutSeconds = input.toLongOrNull() ?: 30L
+
+        val execution: Execution = executionService.createExecution(command, timeoutSeconds)
         println("Task created. ID: ${execution.id}, status: ${execution.status}")
 
         while (true) {

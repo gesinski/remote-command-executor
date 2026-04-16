@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service
 @Service
 class ExecutionService(private val repository: ExecutionRepository) {
 
-    fun createExecution(command: String, cpuCount: Int): Execution {
-        val execution = Execution(command = command, cpuCount = cpuCount)
+    fun createExecution(command: String, timeoutSeconds: Long): Execution {
+        val execution = Execution(command = command, timeoutSeconds = timeoutSeconds)
         return repository.save(execution)
     }
 

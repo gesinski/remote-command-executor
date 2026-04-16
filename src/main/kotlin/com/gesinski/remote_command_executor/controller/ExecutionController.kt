@@ -12,7 +12,7 @@ class ExecutionController(
 
     @PostMapping
     fun createExecution(@RequestBody request: CreateExecutionRequest): Map<String, String> {
-        val execution = executionService.createExecution(request.command, request.cpuCount)
+        val execution = executionService.createExecution(request.command, request.timeoutSeconds)
         return mapOf("executionId" to execution.id)
     }
 
